@@ -69,23 +69,17 @@ class Train
   end
 
   def go_forward
-    if @route.stations[@station_index] != @route.stations[-1]
-      current_station.send_train(self)
-      @station_index += 1
-      current_station.take_train(self)
-    else
-      puts "It's last station"
-    end  
-end
+    return "It's last station" unless next_station
+    current_station.send_train(self)
+    @station_index += 1
+    current_station.take_train(self)
+  end
   
   def go_backward
-    if @route.stations[@station_index] != @route.stations[0]
-      current_station.send_train(self)
-      @station_index -= 1
-      current_station.take_train(self)
-    else
-      puts "It's first station"
-    end 
+    return "It's first station" unless previous_station
+    current_station.send_train(self)
+    @station_index -= 1
+    current_station.take_train(self)
   end
 
   def current_station
